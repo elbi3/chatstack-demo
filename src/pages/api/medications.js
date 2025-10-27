@@ -1,18 +1,24 @@
-export async function get() {
-  const meds = [
-    { id: 1, name: "Amoxicillin", description: "Antibiotic for bacterial infections" },
-    { id: 2, name: "Lisinopril", description: "Treats high blood pressure" },
-    { id: 3, name: "Metformin", description: "Controls blood sugar in type 2 diabetes" },
-    { id: 4, name: "Atorvastatin", description: "Lowers cholesterol levels" },
-    { id: 5, name: "Omeprazole", description: "Reduces stomach acid" },
-    { id: 6, name: "Levothyroxine", description: "Replaces thyroid hormone" },
-    { id: 7, name: "Albuterol", description: "Relieves asthma symptoms" },
-    { id: 8, name: "Amlodipine", description: "Treats hypertension and chest pain" },
-    { id: 9, name: "Hydrochlorothiazide", description: "Diuretic used for high blood pressure" },
-    { id: 10, name: "Simvastatin", description: "Reduces cholesterol production" }
-  ];
+import { Pool } from "pg";
+import dotenv from "dotenv";
+import { fallbackMedications } from "../../data/fallbackMedications";
 
-  return new Response(JSON.stringify(meds), {
-    headers: { "Content-Type": "application/json" },
-  });
+dotenv.config();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+
+export async function GET() {
+  try {
+    const result = await pool.query("SELECT * FROM medications ORDER BY id ASC;");
+    return new Response(JSON.stringify(result.rows), {
+      headers: { "Content-Type": "application/json" },
+    })
+  } catch (err) {
+    console.error("⚠️ Database unavailable, using fallback: ", err.message);
+    return new Response(JSON.stringify(fallbackMedications), {
+      headers: { "Content-Type": "application/json"},
+    })
+  }
 }

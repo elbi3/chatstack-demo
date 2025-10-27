@@ -1,5 +1,16 @@
 # CHATSTACK
 
+---
+## To Run:
+
+1. clone or fork the repository and pull it to your machine *reword*
+2. in terminal, run `npm install` to install dependencies in `package.json`
+3. in terminal, `npm run dev` to start the webpage (front end). This should be visible at http://localhost:4321
+4. in a second terminal window, run `node server\server.js` (windows) (*add mac pathing*) to start the server. This should be visible at http://localhost:5000/api/medications
+5. visit pages on the webste, such as ''*insert* to query the mock data and see the site in action
+
+---
+
 ## Tools & Libraries 💼
 
 - [node-postgres](https://node-postgres.com/)
@@ -10,6 +21,9 @@
 ## Toolkit Setup 🎮
 - for windows, install node using `nvm`, and grab it from [here](https://github.com/coreybutler)
 - VSCode Astro extension [here](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode)
+
+---
+
 ## Helpful Checks ✅
 
 ### Ensure Node Environment is Ready for Coding ⚽️
@@ -22,12 +36,6 @@ npm -v
 ```shell
 npm install ---> adds any dependencies astro needs to the package.json file
 npm run dev ---> runs demo in browser
-```
-navigate to http://localhost:4321/ to view demo!
-
-other installs that were added to packaage.json: 
-```shell
-npm install express pg dotenv
 ```
 
 ### No TypeScript
