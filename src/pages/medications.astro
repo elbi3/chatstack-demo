@@ -1,0 +1,26 @@
+---
+let meds = [];
+try {
+const response = await fetch("http://localhost:5000/api/medications");
+meds = await response.json();
+} catch(err) {
+    //fallback mock data
+    meds = [
+        { id: 1, name: "Amoxicillin", description: "Antibiotic for bacterial infections" },
+        { id: 2, name: "Lisinopril", description: "Treats high blood pressure" },
+        { id: 3, name: "Metformin", description: "Controls blood sugar in type 2 diabetes" },
+        { id: 4, name: "Atorvastatin", description: "Lowers cholesterol levels" },
+        { id: 5, name: "Omeprazole", description: "Reduces stomach acid" },
+        { id: 6, name: "Levothyroxine", description: "Replaces thyroid hormone" },
+        { id: 7, name: "Albuterol", description: "Relieves asthma symptoms" },
+        { id: 8, name: "Amlodipine", description: "Treats hypertension and chest pain" },
+        { id: 9, name: "Hydrochlorothiazide", description: "Diuretic used for high blood pressure" },
+        { id: 10, name: "Simvastatin", description: "Reduces cholesterol production" }
+    ];
+}
+---
+
+<h1>Available Medications</h1>
+<ul>
+  {meds.map(m => <li><b>{m.name}</b>: {m.description}</li>)}
+</ul>
