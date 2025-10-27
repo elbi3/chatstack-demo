@@ -40,11 +40,11 @@ PostgreSQL (persistent data)
 
 ### tiny file structure diagram:
 📦 Project Root
- ┣ 📂 src/         # Astro frontend (UI, pages)
- ┣ 📂 server/      # Express backend (API, DB, AI integration)
- ┣ 📄 astro.config.mjs
- ┣ 📄 package.json
- ┗ 📄 .env
+ ┣ 📂 src/         # Astro frontend (UI, pages)  
+ ┣ 📂 server/      # Express backend (API, DB, AI integration)  
+ ┣ 📄 astro.config.mjs  
+ ┣ 📄 package.json  
+ ┗ 📄 .env  
 
 ### Architecture Diagram
 
