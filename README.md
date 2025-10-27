@@ -39,7 +39,7 @@ Express.js (backend API)
 PostgreSQL (persistent data)
 
 ### tiny file structure diagram:
-📦 Project Root
+📦 Project Root  
  ┣ 📂 src/         # Astro frontend (UI, pages)  
  ┣ 📂 server/      # Express backend (API, DB, AI integration)  
  ┣ 📄 astro.config.mjs  
