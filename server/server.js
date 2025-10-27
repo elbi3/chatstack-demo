@@ -1,4 +1,6 @@
 import express from "express";
+import medicationsRouter from "./routes/medications.js";
+import chatRouter from "./routes/chat.js"; // keep placeholder
 import dotenv from "dotenv";
 import pkg from "pg";
 
@@ -7,6 +9,8 @@ const { Pool } = pkg;
 
 const app = express();
 app.use(express.json());
+app.use("api/medications", medicationsRouter);
+app.use("api/chat", chatRouter);
 const port = process.env.PORT || 5000;
 
 const pool = new Pool({

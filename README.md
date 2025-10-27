@@ -1,17 +1,36 @@
 # CHATSTACK
 
+## Application Architecture and Data Flow:
+Astro serves the UI, proxies API requests to an Express.js backend, which queries a PostgreSQL database and returns structured medication data as JSON to be rendered in the frontend.
+
 ---
+
 ## To Run:
 
-1. clone or fork the repository and pull it to your machine *reword*
-2. in terminal, run `npm install` to install dependencies in `package.json`
-3. in terminal, `npm run dev` to start the webpage (front end). This should be visible at http://localhost:4321
-4. in a second terminal window, run `node server\server.js` (windows) (*add mac pathing*) to start the server. This should be visible at http://localhost:5000/api/medications
-5. visit pages on the webste, such as ''*insert* to query the mock data and see the site in action
+1. Click “Fork” on GitHub or clone directly: `git clone https://github.com/elbi3/chatstack-demo.git`
+2. Then open the project folder in your terminal: `cd chatstack-demo`
+2. In terminal, run `npm install` to install dependencies in `package.json`
+3. In terminal, `npm run dev` to start the webpage (front end). 
+The Astro development server should start at: 👉 http://localhost:4321
+4. To start the back-end, open a second terminal window, run `node server\server.js` (windows) or `node server/server.js` (mac) to start the server. 
+The API should now be live at: 👉 http://localhost:5000/api/medications
+5. Visit the site: 
+    - Open http://localhost:4321
+    - Navigate to /medications to see live medication data fetched from the database.
+    - Other pages (like /stack) describe the technology setup.
 
 ---
 
 ## Tools & Libraries 💼
+
+- PostgreSQL 18 + [node-postgres](https://node-postgres.com/)
+- Node.js v22.21.0
+- Express.js v5!
+- Astro.js v5
+
+## Diagrams
+
+### tiny flow diagram:
 
 Astro (frontend) (UI)
   ↕
@@ -19,47 +38,70 @@ Express.js (backend API)
   ↕
 PostgreSQL (persistent data)
 
-- PostgreSQL 18 + [node-postgres](https://node-postgres.com/)
-- Node.js v22.21.0
-- Express.js v5!
-- Astro.js v5
+### tiny file structure diagram:
+📦 Project Root
+ ┣ 📂 src/         # Astro frontend (UI, pages)
+ ┣ 📂 server/      # Express backend (API, DB, AI integration)
+ ┣ 📄 astro.config.mjs
+ ┣ 📄 package.json
+ ┗ 📄 .env
 
-## Architecture Diagram
+### Architecture Diagram
+
      ┌────────────────────────────┐
      │         Frontend           │
-     │   Astro + CSS + JS         │
-     │   (Chat UI)                │
+     │   Astro + HTML + CSS + JS  │
+     │   Pages: /, /stack, /meds  │
      └───────────┬────────────────┘
-                 │ fetch("/api/chat")
+                 │ fetch("/api/medications")
+                 │ fetch("/api/chat") ← future chatbot
      ┌───────────▼────────────────┐
-     │        Express.js           │
-     │  Chat route: /api/chat      │
-     │  DB route: /api/medications │
+     │        Express.js          │
+     │  Routes:                   │
+     │   • /api/medications       │
+     │   • /api/chat (placeholder)│
+     │  Uses node-postgres (pg)   │
      └───────────┬────────────────┘
                  │
      ┌───────────▼────────────────┐
      │     PostgreSQL Database     │
-     │  (Stores meds & chat logs)  │
+     │  Table: medications         │
+     │  Columns: name, dosage,     │
+     │  instructions, description  │
      └───────────┬────────────────┘
                  │
      ┌───────────▼────────────────┐
      │   Hugging Face Model API    │
-     │ (LLM: text-generation)      │
+     │ (LLM: future chatbot logic) │
      └────────────────────────────┘
+
 
 ---
 
-🔄 Flow Summary
-1. User visits /medications
-→ Astro renders medications.astro.
-→ It calls /api/medications.
-2. Astro dev proxy
-→ Forwards /api/medications → http://localhost:5000/api/medications.
-3. Express server (port 5000)
-→ Handles /api/medications.
-→ Queries PostgreSQL → returns JSON.
-4. PostgreSQL
-→ Stores real medication records.
+## 🔄 Final Flow Summary
+
+1. User visits `/medications`
+- Astro serves the `src/pages/medications.astro` page.
+- Inside that page, your frontend code (either in a script tag or a component) fetches data from the route `/api/medications.`
+
+2. Astro Vite proxy forwards the request
+- The Astro dev server sees that the URL starts with `/api.`
+- It automatically forwards that request to your Express backend at http://localhost:5000/api/medications (as configured in `astro.config.mjs`).
+
+3. Express backend handles `/api/medications`
+- Express receives the request on port 5000.
+- The route defined in `server/routes/medications.js` runs a SQL query against PostgreSQL.
+- Express sends the result back as JSON.
+
+4. PostgreSQL database
+- PostgreSQL stores all medication records (name, description, dosage, instructions).
+- Express queries this data using the `pg` library and returns it to Astro.
+
+5. Astro frontend renders the data
+- The JSON from Express is received by the frontend code in `medications.astro`.
+- The page displays the live data (or fallback data if the API fails).
+
+---
 
 ---
 
