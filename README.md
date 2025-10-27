@@ -13,10 +13,55 @@
 
 ## Tools & Libraries 💼
 
-- [node-postgres](https://node-postgres.com/)
+Astro (frontend) (UI)
+  ↕
+Express.js (backend API)
+  ↕
+PostgreSQL (persistent data)
+
+- PostgreSQL 18 + [node-postgres](https://node-postgres.com/)
 - Node.js v22.21.0
-- express.js
-- PostgreSQL 
+- Express.js v5!
+- Astro.js v5
+
+## Architecture Diagram
+     ┌────────────────────────────┐
+     │         Frontend           │
+     │   Astro + CSS + JS         │
+     │   (Chat UI)                │
+     └───────────┬────────────────┘
+                 │ fetch("/api/chat")
+     ┌───────────▼────────────────┐
+     │        Express.js           │
+     │  Chat route: /api/chat      │
+     │  DB route: /api/medications │
+     └───────────┬────────────────┘
+                 │
+     ┌───────────▼────────────────┐
+     │     PostgreSQL Database     │
+     │  (Stores meds & chat logs)  │
+     └───────────┬────────────────┘
+                 │
+     ┌───────────▼────────────────┐
+     │   Hugging Face Model API    │
+     │ (LLM: text-generation)      │
+     └────────────────────────────┘
+
+---
+
+🔄 Flow Summary
+1. User visits /medications
+→ Astro renders medications.astro.
+→ It calls /api/medications.
+2. Astro dev proxy
+→ Forwards /api/medications → http://localhost:5000/api/medications.
+3. Express server (port 5000)
+→ Handles /api/medications.
+→ Queries PostgreSQL → returns JSON.
+4. PostgreSQL
+→ Stores real medication records.
+
+---
 
 ## Toolkit Setup 🎮
 - for windows, install node using `nvm`, and grab it from [here](https://github.com/coreybutler)
