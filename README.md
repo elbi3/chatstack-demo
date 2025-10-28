@@ -1,4 +1,4 @@
-# CHATSTACK
+# CHATSTACK 📱
 
 ## Application Architecture and Data Flow:
 Astro serves the UI, proxies API requests to an Express.js backend, which queries a PostgreSQL database and returns structured medication data as JSON to be rendered in the frontend.
