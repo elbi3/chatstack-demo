@@ -133,9 +133,9 @@ npm run dev ---> runs demo in browser
 ### No TypeScript
 In my humble opinion, TypeScript is out of the scope of this project, since we just need to get something up and running and TS is a headache. Using JSDocs will be just as effective. If you get type warnings, like `"Parameter 'm' implicitly has an 'any' type.ts(7006)"`, it doesn't mean your code is necessarily wrong, just that the variable could be anything. Here are two easy fixes:
 Put this at the top of your .js file with the warning to turn off warnings for that file: 
-// @ts-nocheck
-just skip a line:
-// @ts-ignore
+`// @ts-nocheck` 
+OR, to skip a single line: 
+`// @ts-ignore` 
 
 Second option is to use a "JSDoc" comment, and add a definition to your variable:
 ```js
