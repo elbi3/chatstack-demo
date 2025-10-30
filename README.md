@@ -32,12 +32,12 @@ The API should now be live at: 👉 http://localhost:5000/api/medications
 
 ### tiny flow diagram:
 
-Astro (frontend) (UI)
-  ↕
-Express.js (backend API)
-  ↕
-PostgreSQL (persistent data)
-
+Astro (frontend) (UI) 
+  ↕ 
+Express.js (backend API) 
+  ↕ 
+PostgreSQL (persistent data) 
+ 
 ### tiny file structure diagram:
 📦 Project Root  
  ┣ 📂 src/         # Astro frontend (UI, pages)  
